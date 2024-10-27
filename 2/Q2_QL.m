@@ -31,8 +31,8 @@ x_aug = [ones(1, n);                % Bias term
 
 sigma = 1^2;  % Given noise variance
 costfunc_ml = @(w) sum((yTrain - (w' * x_aug)).^2) / (2 * sigma);  % Squared error cost function
-w_ml = fminsearch(costfunc_ml, zeros(10, 1));  % Minimize squared error
-w_ml=(x_aug * x_aug')\ (x_aug *yTrain' );
+% w_ml = fminsearch(costfunc_ml, zeros(10, 1));  % Minimize squared error
+w_ml = (x_aug * x_aug')\ (x_aug *yTrain' );
 
 yTrain_pred = w_ml' * x_aug;
 n_validate = size(xValidate, 2);  % Number of validation points
