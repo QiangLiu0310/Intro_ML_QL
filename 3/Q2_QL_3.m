@@ -17,7 +17,7 @@ Sigma_true(:,:,4) = [4 -1; 1 8];
 % Store selected model orders for each dataset size
 selected_model_orders = zeros(length(dataset_sizes), num_repeats);
 
-for d = 1:length(dataset_sizes)
+for d = 1: 1% length(dataset_sizes)
     N = dataset_sizes(d); % Number of samples in the dataset
 
     for repeat = 1:num_repeats
@@ -28,7 +28,7 @@ for d = 1:length(dataset_sizes)
         indices = crossvalind('Kfold', N, num_folds);
         log_likelihoods = zeros(max_components, 1);
 
-        for M = 1:max_components
+        for M = 1: max_components
 
             % ensure M does not exceed N
             if M>=N
@@ -53,12 +53,16 @@ for d = 1:length(dataset_sizes)
             end
             % Average log-likelihood across folds
             log_likelihoods(M) = mean(fold_log_likelihoods);
-%             disp(['No of model order:   ', num2str(M)])
         end
 
         % Select the model order with the highest average log-likelihood
-        [~, best_model_order] = max(log_likelihoods);
-        selected_model_orders(d, repeat) = best_model_order;
+        if d~=1
+            [~, best_model_order] = max(log_likelihoods);
+            selected_model_orders(d, repeat) = best_model_order;
+        else
+            [~, best_model_order] = max(log_likelihoods(1:9));
+            selected_model_orders(d, repeat) = best_model_order;
+        end
         disp(num2str(repeat))
     end
 end

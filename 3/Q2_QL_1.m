@@ -1,21 +1,20 @@
 clear;close all;clc;
-N=1000;
+N=10;
 figure(1), clf,
 delta = 1e-2;
 regWeight = 1e-10;
 
 alpha_true = [0.2, 0.25, 0.25, 0.3];
-
 mu_true = [-10, -5, 0, 10; 0, 0, 0, 0];
 Sigma_true(:,:,1) = [3 1; 1 20];
-Sigma_true(:,:,2) = [5 1; 1 5];    
-Sigma_true(:,:,3) = [5 1; 1 5];  
+Sigma_true(:,:,2) = [5 1; 1 5];
+Sigma_true(:,:,3) = [5 1; 1 5];
 Sigma_true(:,:,4) = [4 -1; 1 8];
 
 x = randGMM(N,alpha_true,mu_true,Sigma_true);
 [d,Mtrue] = size(mu_true)
 
-M = 10;
+M = 1;
 
 alpha = ones(1,M)/M;
 shuffledIndices = randperm(N);
